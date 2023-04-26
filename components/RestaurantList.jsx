@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react"
-import { View, Text, ScrollView, StyleSheet } from "react-native"
+import { View, ScrollView, StyleSheet } from "react-native"
 import RestaurantCard from "./RestaurantCard"
+import Random from "./Random"
 
-export default function RestaurantList () {
+export default function RestaurantList ({ navigation }) {
 
   const [foodList, setFoodList] = useState()
 
@@ -15,24 +16,18 @@ export default function RestaurantList () {
 
   return(
     <View style={styles.container}>
-      <Text style={styles.title}>Restaurant List</Text>
       <ScrollView style={styles.list}>
         {foodList && foodList.map(food => (
-          <RestaurantCard food={food} key={food.id}/>
+          <RestaurantCard food={food} key={food.id} navigation={navigation}/>
         ))}
 
       </ScrollView>
+      <Random navigation={navigation} foodList={foodList} />
     </View>
   )
 }
 
 const styles = StyleSheet.create ({
-  title: {
-    fontSize: 30,
-    fontWeight: 700,
-    color: '#151B54',
-    marginVertical: 8,
-  },
   list: {
     width: '100%',
     // borderColor: 'red',
@@ -40,11 +35,12 @@ const styles = StyleSheet.create ({
   },
   container: {
     flex: 1, //take up as much space as we can
-    // backgroundColor: 'pink',
-    marginTop: 20,
-    marginBottom: 20,
-    width: '90%',
+    backgroundColor: 'skyblue',
+    // marginTop: 20,
+    // marginBottom: 20,
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    padding: 16,
   }
 })
